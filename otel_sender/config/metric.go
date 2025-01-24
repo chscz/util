@@ -1,3 +1,5 @@
 package config
 
-type Metric struct{}
+type Metric struct {
+	Enable bool `env:"ENABLED"`
+}

@@ -1,3 +1,5 @@
 package config
 
-type Log struct{}
+type Log struct {
+	Enable bool `env:"ENABLED"`
+}
