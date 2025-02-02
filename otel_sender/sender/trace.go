@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/chscz/test_project/otel_sender/config"
+	"github.com/chscz/test_project/otel_sender/domain"
 	"google.golang.org/grpc"
 )
 
@@ -50,7 +51,7 @@ func (t *TraceSender) Start(ctx context.Context) (success, failed int) {
 
 func (t *TraceSender) countSender() (success, failed int) {
 	for cnt := 0; cnt < t.config.TerminationConfig.MaxCount; cnt++ {
-		data := setData()
+		data := domain.SetData()
 		if err := t.send(data); err != nil {
 			t.logger.Error(err.Error())
 			failed++
@@ -63,7 +64,7 @@ func (t *TraceSender) countSender() (success, failed int) {
 
 func (t *TraceSender) durationSender() (success, failed int) {
 	for {
-		data := setData()
+		data := domain.SetData()
 		if err := t.send(data); err != nil {
 			t.logger.Error(err.Error())
 			failed++
@@ -136,8 +137,4 @@ func (t *TraceSender) setTerminateConfig() {
 
 func (t *TraceSender) shutdown() {
 
-}
-
-func setData() io.Reader {
-	return nil
 }

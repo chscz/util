@@ -52,9 +52,10 @@ const (
 )
 
 type Config struct {
-	Trace  Trace  `envPrefix:"TRACE_"`
-	Log    Log    `envPrefix:"LOG_"`
-	Metric Metric `envPrefix:"METRIC_"`
+	Trace        Trace  `envPrefix:"TRACE_"`
+	Log          Log    `envPrefix:"LOG_"`
+	Metric       Metric `envPrefix:"METRIC_"`
+	SessionCount int    `env:"SESSION_COUNT"`
 }
 
 func (c Config) String() string {
@@ -76,8 +77,9 @@ func LoadFromEnv() (Config, error) {
 				EndDeadline: "",
 			},
 		},
-		Log:    Log{},
-		Metric: Metric{},
+		Log:          Log{},
+		Metric:       Metric{},
+		SessionCount: 10,
 	}
 
 	if err := godotenv.Load(".env"); err != nil {

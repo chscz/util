@@ -6,6 +6,7 @@ import (
 	"sync"
 
 	"github.com/chscz/test_project/otel_sender/config"
+	"github.com/chscz/test_project/otel_sender/mock"
 	"github.com/chscz/test_project/otel_sender/service"
 	collogspb "go.opentelemetry.io/proto/otlp/collector/logs/v1"
 	colmetricspb "go.opentelemetry.io/proto/otlp/collector/metrics/v1"
@@ -32,6 +33,8 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+	mock.GenerateServiceSession(cfg.SessionCount)
+	fmt.Println(mock.ServiceSession)
 	container := service.NewContainer(cfg)
 	defer container.Close()
 
